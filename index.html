@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jogo da Crase  - Aventura Gramatical</title>
+     Mudando para fontes mais modernas e gamificadas 
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-universe">
+        <div class="cosmic-background">
+            <div class="stars-layer"></div>
+            <div class="nebula-layer"></div>
+            <div class="moving-stars"></div>
+        </div>
+
+        <div class="game-hud">
+            <div class="hud-left">
+                <div class="player-avatar">
+                    <div class="avatar-ring"></div>
+                    <div class="avatar-core"></div>
+                </div>
+                <div class="player-info">
+                    <div class="player-name"></div>
+                    <div class="level-display">
+                        <span>SETOR</span>
+                        <span class="level-number" id="current-level">01</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hud-center">
+                <div class="mission-progress">
+                    <div class="progress-track">
+                        <div class="progress-beam" id="progress-beam"></div>
+                        <div class="checkpoint" data-sector="1"></div>
+                        <div class="checkpoint" data-sector="2"></div>
+                        <div class="checkpoint" data-sector="3"></div>
+                        <div class="checkpoint" data-sector="4"></div>
+                        <div class="checkpoint" data-sector="5"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hud-right">
+                <div class="energy-display">
+                    <div class="energy-label">ENERGIA</div>
+                    <div class="energy-bars" id="energy-bars">
+                        <div class="energy-bar active"></div>
+                        <div class="energy-bar active"></div>
+                        <div class="energy-bar active"></div>
+                    </div>
+                </div>
+                <div class="score-display">
+                    <div class="score-label">PONTOS</div>
+                    <div class="score-value" id="score">0000</div>
+                </div>
+            </div>
+        </div>
+
+         
+        <div class="launch-screen" id="launch-screen">
+            <div class="title-sequence">
+                <h1 class="game-logo">JOGO DA CRASE </h1>
+                <p>GRUPO: Arthur Badaró, Augusto, Cassiano, Gabriel Coelho, Gabriel Conrado, Paulo e Pedro Souza </p>
+                <div class="subtitle-glow"></div>
+                
+                <div class="mission-briefing">
+                    <div class="briefing-panel">
+                        <h3></h3>                        
+                        <div class="objectives">
+                            <div class="objective">
+                                <div class="obj-icon success"></div>
+                                <span>Acerte para avançar</span>
+                            </div>
+                            <div class="objective">
+                                <div class="obj-icon danger"></div>
+                                <span>Erre e perca energia</span>
+                            </div>
+                            <div class="objective">
+                                <div class="obj-icon victory"></div>
+                                <span>Complete todos os setores</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="launch-button" onclick="startMission()">
+                    <div class="button-core">INICIAR JOGO</div>
+                    <div class="button-pulse"></div>
+                </button>
+            </div>
+        </div>
+
+         
+        <div class="mission-area" id="mission-area" style="display: none;">
+             
+            <div class="sector-transition" id="sector-transition">
+                <div class="transition-screen">
+                    <div class="scanning-line"></div>
+                    <h2 class="sector-title" id="sector-title"></h2>
+                    <p class="sector-description" id="sector-description"></p>
+                    <div class="loading-sequence">
+                        <div class="loading-bar">
+                            <div class="loading-fill"></div>
+                        </div>
+                        <div class="loading-text"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="challenge-interface">
+                <div class="challenge-header">
+                    <div class="sector-info">
+                        <h2 class="challenge-title" id="challenge-title"></h2>
+                        <p class="challenge-brief" id="challenge-brief"></p>
+                    </div>
+                </div>
+
+                 
+                <div class="terminal-grid">
+                    <div class="terminal-station" onclick="selectTerminal(1)">
+                        <div class="terminal" id="terminal-1">
+                            <div class="terminal-screen">
+                                <div class="screen-glow"></div>
+                                <div class="answer-text" id="answer-1"></div>
+                                <div class="terminal-cursor"></div>
+                            </div>
+                            <div class="terminal-base">
+                                <div class="terminal-label">alternativa A</div>
+                                <div class="status-light"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="terminal-station" onclick="selectTerminal(2)">
+                        <div class="terminal" id="terminal-2">
+                            <div class="terminal-screen">
+                                <div class="screen-glow"></div>
+                                <div class="answer-text" id="answer-2"></div>
+                                <div class="terminal-cursor"></div>
+                            </div>
+                            <div class="terminal-base">
+                                <div class="terminal-label">alternativa B</div>
+                                <div class="status-light"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="terminal-station" onclick="selectTerminal(3)">
+                        <div class="terminal" id="terminal-3">
+                            <div class="terminal-screen">
+                                <div class="screen-glow"></div>
+                                <div class="answer-text" id="answer-3"></div>
+                                <div class="terminal-cursor"></div>
+                            </div>
+                            <div class="terminal-base">
+                                <div class="terminal-label">alternativa C</div>
+                                <div class="status-light"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="terminal-station" onclick="selectTerminal(4)">
+                        <div class="terminal" id="terminal-4">
+                            <div class="terminal-screen">
+                                <div class="screen-glow"></div>
+                                <div class="answer-text" id="answer-4"></div>
+                                <div class="terminal-cursor"></div>
+                            </div>
+                            <div class="terminal-base">
+                                <div class="terminal-label">alternativa D</div>
+                                <div class="status-light"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feedback-system" id="feedback-system" style="display: none;">
+                <div class="system-overlay"></div>
+                <div class="feedback-console">
+                    <div class="console-header">
+                        <div class="status-indicator" id="status-indicator"></div>
+                        <div class="console-title" id="console-title"></div>
+                    </div>
+                    <div class="console-content">
+                        <div class="result-analysis" id="result-analysis"></div>
+                        <div class="explanation-data" id="explanation-data"></div>
+                    </div>
+                    <button class="proceed-button" onclick="proceedToNext()" id="proceed-btn">
+                        <span>PROSSEGUIR</span>
+                        <div class="button-arrow"></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mission-complete" id="mission-complete" style="display: none;">
+            <div class="completion-ceremony">
+                <div class="victory-effects">
+                    <div class="energy-burst"></div>
+                    <div class="particle-explosion"></div>
+                </div>
+                
+                <div class="achievement-display">
+                    <div class="rank-badge">
+                        <div class="badge-glow"></div>
+                        <div class="badge-content">
+                            <div class="rank-icon"></div>
+                            <div class="rank-title"></div>
+                        </div>
+                    </div>
+                    
+                    <h2 class="completion-title">JOGO CONCLUÍDO</h2>
+                    <p class="completion-message"></p>
+                    
+                    <div class="mission-stats">
+                        <div class="stat-panel">
+                            <div class="stat-icon score-icon"></div>
+                            <div class="stat-info">
+                                <div class="stat-label">PONTUAÇÃO FINAL</div>
+                                <div class="stat-number" id="final-score">0000</div>
+                            </div>
+                        </div>
+                        <div class="stat-panel">
+                            <div class="stat-icon sectors-icon"></div>
+                            <div class="stat-info">
+                                <div class="stat-label"></div>
+                                <div class="stat-number">5/5</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="restart-mission" onclick="restartMission()">
+                        <span>NOVO JOGO</span>
+                        <div class="restart-glow"></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
