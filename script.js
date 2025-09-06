@@ -3,292 +3,202 @@ let currentSector = 1
 let currentQuestion = 1
 const questionsPerSector = 5
 let totalPoints = 0
-let energyLevel = 3
+let energyLevel = 10
 let isTransitioning = false
 
 const missionSectors = [
   {
-    title: "primeira fase",
-    description: "",
-    briefing: "",
-    difficulty: "",
+    title: "SETOR ALFA: Básico",
+    description: "Detecte o uso básico da crase:",
+    briefing: "Analisando frases simples...",
+    difficulty: "FÁCIL",
     questions: [
       {
-        terminals: [
-          "Vou a escola todos os dias.",
-          "Vou à escola todos os dias.",
-          "Vou para escola todos os dias.",
-          "Vou na escola todos os dias.",
-        ],
+        terminals: ["Vou a escola.", "Vou à escola.", "Vou na escola.", "Vou para escola."],
         correctTerminal: 2,
-        analysis: "Crase obrigatória: preposição 'a' + artigo 'a' = 'à escola'.",
-      },
-      {
-        terminals: ["Chegou a casa cedo.", "Chegou à casa cedo.", "Chegou em casa cedo.", "Chegou para casa cedo."],
-        correctTerminal: 2,
-        analysis: "Crase obrigatória: 'a' + 'a casa' = 'à casa'.",
-      },
-      {
-        terminals: [
-          "Refere-se a pessoa conhecida.",
-          "Refere-se à pessoa conhecida.",
-          "Refere-se para pessoa conhecida.",
-          "Refere-se sobre pessoa conhecida.",
-        ],
-        correctTerminal: 2,
-        analysis: "Crase obrigatória: 'a' + 'a pessoa' = 'à pessoa'.",
+        analysis: "Use crase: 'a' + 'a escola' = 'à escola'.",
       },
       {
         terminals: [
           "Deu o livro a menina.",
           "Deu o livro à menina.",
-          "Deu o livro para menina.",
           "Deu o livro da menina.",
+          "Deu o livro para menina.",
         ],
         correctTerminal: 2,
-        analysis: "Crase obrigatória: 'a' + 'a menina' = 'à menina'.",
+        analysis: "Use crase: 'a' + 'a menina' = 'à menina'.",
       },
       {
-        terminals: [
-          "Voltou a cidade natal.",
-          "Voltou à cidade natal.",
-          "Voltou para cidade natal.",
-          "Voltou na cidade natal.",
-        ],
+        terminals: ["Chegou a casa.", "Chegou à casa.", "Chegou na casa.", "Chegou para casa."],
         correctTerminal: 2,
-        analysis: "Crase obrigatória: 'a' + 'a cidade' = 'à cidade'.",
+        analysis: "Use crase: 'a' + 'a casa' = 'à casa'.",
+      },
+      {
+        terminals: ["Falou a mãe.", "Falou à mãe.", "Falou com mãe.", "Falou para mãe."],
+        correctTerminal: 2,
+        analysis: "Use crase: 'a' + 'a mãe' = 'à mãe'.",
+      },
+      {
+        terminals: ["Foi a cidade.", "Foi à cidade.", "Foi na cidade.", "Foi para cidade."],
+        correctTerminal: 2,
+        analysis: "Use crase: 'a' + 'a cidade' = 'à cidade'.",
       },
     ],
   },
   {
-    title: "nivel médio",
-    description: "",
-    briefing: "",
-    difficulty: "",
+    title: "SETOR BETA: Intermediário",
+    description: "Identifique quando NÃO usar crase:",
+    briefing: "Analisando casos sem crase...",
+    difficulty: "MÉDIO",
     questions: [
       {
-        terminals: [
-          "Ficou a frente da casa esperando.",
-          "Ficou à frente da casa esperando.",
-          "Ficou na frente da casa esperando.",
-          "Ficou em frente da casa esperando.",
-        ],
+        terminals: ["Vou à casa dele.", "Vou a casa dele.", "Vou na casa dele.", "Vou para casa dele."],
         correctTerminal: 2,
-        analysis: "Locução prepositiva feminina: 'à frente de' sempre com crase.",
+        analysis: "SEM crase: 'casa dele' (não tem artigo 'a').",
+      },
+      {
+        terminals: ["Falou à Maria.", "Falou a Maria.", "Falou com Maria.", "Falou para Maria."],
+        correctTerminal: 2,
+        analysis: "SEM crase: nomes próprios não levam artigo.",
       },
       {
         terminals: [
-          "Saiu a procura de emprego.",
-          "Saiu à procura de emprego.",
-          "Saiu em procura de emprego.",
-          "Saiu para procura de emprego.",
+          "Deu o presente à ela.",
+          "Deu o presente a ela.",
+          "Deu o presente para ela.",
+          "Deu o presente dela.",
         ],
         correctTerminal: 2,
-        analysis: "Locução prepositiva: 'à procura de' sempre com crase.",
+        analysis: "SEM crase: pronomes pessoais não levam artigo.",
+      },
+      {
+        terminals: ["Chegou à uma hora.", "Chegou a uma hora.", "Chegou em uma hora.", "Chegou numa hora."],
+        correctTerminal: 2,
+        analysis: "SEM crase: 'uma' já é artigo indefinido.",
       },
       {
         terminals: [
-          "Chegou a tempo da reunião.",
-          "Chegou à tempo da reunião.",
-          "Chegou em tempo da reunião.",
-          "Chegou no tempo da reunião.",
+          "Voltou à terra natal.",
+          "Voltou a terra natal.",
+          "Voltou para terra natal.",
+          "Voltou na terra natal.",
         ],
         correctTerminal: 1,
-        analysis: "SEM crase: 'a tempo' é locução adverbial masculina.",
-      },
-      {
-        terminals: [
-          "Ficou a espera do resultado.",
-          "Ficou à espera do resultado.",
-          "Ficou na espera do resultado.",
-          "Ficou em espera do resultado.",
-        ],
-        correctTerminal: 2,
-        analysis: "Locução prepositiva: 'à espera de' sempre com crase.",
-      },
-      {
-        terminals: [
-          "Vendeu a prazo o produto.",
-          "Vendeu à prazo o produto.",
-          "Vendeu em prazo o produto.",
-          "Vendeu no prazo o produto.",
-        ],
-        correctTerminal: 1,
-        analysis: "SEM crase: 'a prazo' é locução adverbial masculina.",
+        analysis: "COM crase: 'a' + 'a terra' = 'à terra'.",
       },
     ],
   },
   {
-    title: "nivel dificil",
-    description: "",
-    briefing: "",
-    difficulty: "",
+    title: "SETOR GAMMA: Avançado",
+    description: "Casos especiais de crase:",
+    briefing: "Analisando locuções...",
+    difficulty: "DIFÍCIL",
     questions: [
       {
         terminals: [
-          "Dirigiu-se a Sua Excelência.",
-          "Dirigiu-se à Sua Excelência.",
-          "Ambas as opções A e B estão corretas.",
-          "Dirigiu-se para Sua Excelência.",
+          "Saiu a procura de trabalho.",
+          "Saiu à procura de trabalho.",
+          "Saiu em procura de trabalho.",
+          "Saiu para procura de trabalho.",
         ],
-        correctTerminal: 3,
-        analysis: "Crase facultativa antes de pronomes de tratamento femininos.",
+        correctTerminal: 2,
+        analysis: "Locução: 'à procura de' sempre com crase.",
       },
       {
         terminals: [
-          "Entregou a sua irmã o presente.",
-          "Entregou à sua irmã o presente.",
-          "Ambas as opções A e B estão corretas.",
-          "Entregou para sua irmã o presente.",
+          "Ficou a frente da casa.",
+          "Ficou à frente da casa.",
+          "Ficou na frente da casa.",
+          "Ficou em frente da casa.",
         ],
-        correctTerminal: 3,
-        analysis: "Crase facultativa antes de pronomes possessivos femininos.",
+        correctTerminal: 2,
+        analysis: "Locução: 'à frente de' sempre com crase.",
       },
       {
-        terminals: [
-          "Referia-se a dona Maria sempre.",
-          "Referia-se à dona Maria sempre.",
-          "Ambas as opções A e B estão corretas.",
-          "Referia-se para dona Maria sempre.",
-        ],
-        correctTerminal: 3,
-        analysis: "Crase facultativa antes de nomes próprios femininos precedidos de 'dona'.",
+        terminals: ["Vendeu à vista.", "Vendeu a vista.", "Vendeu em vista.", "Vendeu na vista."],
+        correctTerminal: 1,
+        analysis: "Locução: 'à vista' sempre com crase.",
       },
       {
-        terminals: [
-          "Obedece a minha mãe sempre.",
-          "Obedece à minha mãe sempre.",
-          "Ambas as opções A e B estão corretas.",
-          "Obedece para minha mãe sempre.",
-        ],
-        correctTerminal: 3,
-        analysis: "Crase facultativa: pronome possessivo feminino 'minha'.",
+        terminals: ["Chegou à tempo.", "Chegou a tempo.", "Chegou em tempo.", "Chegou no tempo."],
+        correctTerminal: 2,
+        analysis: "SEM crase: 'a tempo' é masculino.",
       },
       {
-        terminals: [
-          "Dirigiu-se a senhora ministra.",
-          "Dirigiu-se à senhora ministra.",
-          "Ambas as opções A e B estão corretas.",
-          "Dirigiu-se para senhora ministra.",
-        ],
-        correctTerminal: 3,
-        analysis: "Crase facultativa antes de 'senhora' + cargo feminino.",
+        terminals: ["Ficou a espera.", "Ficou à espera.", "Ficou na espera.", "Ficou em espera."],
+        correctTerminal: 2,
+        analysis: "Locução: 'à espera' sempre com crase.",
       },
     ],
   },
   {
-    title: "nivel expert",
-    description: "",
-    briefing: "",
-    difficulty: "",
+    title: "SETOR DELTA: Expert",
+    description: "Horas e lugares:",
+    briefing: "Analisando horas e locais...",
+    difficulty: "MUITO DIFÍCIL",
     questions: [
       {
-        terminals: [
-          "Viajou a França no verão.",
-          "Viajou à França no verão.",
-          "Viajou para França no verão.",
-          "Viajou na França no verão.",
-        ],
+        terminals: ["Chegou a 8 horas.", "Chegou às 8 horas.", "Chegou nas 8 horas.", "Chegou em 8 horas."],
         correctTerminal: 2,
-        analysis: "Crase obrigatória: país feminino com artigo 'a França'.",
+        analysis: "Horas: sempre 'às' com crase.",
       },
       {
-        terminals: [
-          "Retornou a Brasília ontem.",
-          "Retornou à Brasília ontem.",
-          "Retornou para Brasília ontem.",
-          "Retornou em Brasília ontem.",
-        ],
+        terminals: ["Viajou à França.", "Viajou a França.", "Viajou para França.", "Viajou na França."],
         correctTerminal: 1,
-        analysis: "SEM crase: 'Brasília' não aceita artigo (vem DE Brasília).",
+        analysis: "País feminino: 'à França' com crase.",
       },
       {
-        terminals: [
-          "Mudou-se a Bahia definitivamente.",
-          "Mudou-se à Bahia definitivamente.",
-          "Mudou-se para Bahia definitivamente.",
-          "Mudou-se na Bahia definitivamente.",
-        ],
-        correctTerminal: 2,
-        analysis: "Crase obrigatória: estado feminino com artigo 'a Bahia'.",
-      },
-      {
-        terminals: [
-          "Chegou a Roma pela manhã.",
-          "Chegou à Roma pela manhã.",
-          "Chegou para Roma pela manhã.",
-          "Chegou em Roma pela manhã.",
-        ],
+        terminals: ["Foi à Bahia.", "Foi a Bahia.", "Foi para Bahia.", "Foi na Bahia."],
         correctTerminal: 1,
-        analysis: "SEM crase: 'Roma' não aceita artigo (vem DE Roma).",
+        analysis: "Estado feminino: 'à Bahia' com crase.",
       },
       {
-        terminals: [
-          "Voou a Alemanha rapidamente.",
-          "Voou à Alemanha rapidamente.",
-          "Voou para Alemanha rapidamente.",
-          "Voou na Alemanha rapidamente.",
-        ],
+        terminals: ["Voltou à Brasília.", "Voltou a Brasília.", "Voltou para Brasília.", "Voltou em Brasília."],
         correctTerminal: 2,
-        analysis: "Crase obrigatória: país feminino com artigo 'a Alemanha'.",
+        analysis: "SEM crase: 'Brasília' não aceita artigo.",
+      },
+      {
+        terminals: ["Saiu a 1 hora.", "Saiu à 1 hora.", "Saiu na 1 hora.", "Saiu em 1 hora."],
+        correctTerminal: 2,
+        analysis: "Hora específica: 'à 1 hora' com crase.",
       },
     ],
   },
   {
-    title: "setor impossivel",
-    description: "",
-    briefing: "",
-    difficulty: "",
+    title: "SETOR ÔMEGA: Master",
+    description: "Casos complexos:",
+    briefing: "Analisando casos avançados...",
+    difficulty: "EXTREMO",
     questions: [
       {
-        terminals: [
-          "Referia-se a mulher do comandante.",
-          "Referia-se à mulher do comandante.",
-          "Referia-se a uma mulher do comandante.",
-          "Referia-se aquela mulher do comandante.",
-        ],
+        terminals: ["Saiu as pressas.", "Saiu às pressas.", "Saiu com pressas.", "Saiu em pressas."],
         correctTerminal: 2,
-        analysis: "Crase especifica: 'à mulher' (determinada) vs 'a uma mulher' (indeterminada).",
+        analysis: "Locução feminina plural: 'às pressas'.",
+      },
+      {
+        terminals: ["Ficou a deriva.", "Ficou à deriva.", "Ficou em deriva.", "Ficou na deriva."],
+        correctTerminal: 2,
+        analysis: "Locução feminina: 'à deriva'.",
       },
       {
         terminals: [
-          "Vendeu a vista o apartamento.",
-          "Vendeu à vista o apartamento.",
-          "Vendeu a prazo o apartamento.",
-          "Vendeu em vista o apartamento.",
+          "Trabalha as escondidas.",
+          "Trabalha às escondidas.",
+          "Trabalha em escondidas.",
+          "Trabalha nas escondidas.",
         ],
         correctTerminal: 2,
-        analysis: "Locução adverbial feminina: 'à vista' sempre com crase.",
+        analysis: "Locução feminina plural: 'às escondidas'.",
       },
       {
-        terminals: [
-          "Saiu as pressas de casa.",
-          "Saiu às pressas de casa.",
-          "Saiu com pressas de casa.",
-          "Saiu em pressas de casa.",
-        ],
+        terminals: ["Refere-se a mulher.", "Refere-se à mulher.", "Refere-se da mulher.", "Refere-se para mulher."],
         correctTerminal: 2,
-        analysis: "Locução adverbial feminina plural: 'às pressas' sempre com crase.",
+        analysis: "Específico: 'à mulher' (determinada).",
       },
       {
-        terminals: [
-          "Ficou a deriva no oceano.",
-          "Ficou à deriva no oceano.",
-          "Ficou em deriva no oceano.",
-          "Ficou na deriva no oceano.",
-        ],
+        terminals: ["Chegou as 14 horas.", "Chegou às 14 horas.", "Chegou nas 14 horas.", "Chegou em 14 horas."],
         correctTerminal: 2,
-        analysis: "Locução adverbial feminina: 'à deriva' sempre com crase.",
-      },
-      {
-        terminals: [
-          "Trabalha as escondidas sempre.",
-          "Trabalha às escondidas sempre.",
-          "Trabalha em escondidas sempre.",
-          "Trabalha nas escondidas sempre.",
-        ],
-        correctTerminal: 2,
-        analysis: "Locução adverbial feminina plural: 'às escondidas' sempre com crase.",
+        analysis: "Horas: sempre 'às 14 horas'.",
       },
     ],
   },
@@ -439,14 +349,14 @@ function showSystemFeedback(success, analysisData) {
 
   if (success) {
     statusIndicator.className = "status-indicator success"
-    consoleTitle.textContent = "voce acertou"
+    consoleTitle.textContent = "SISTEMA: OPERAÇÃO BEM-SUCEDIDA"
     resultAnalysis.className = "result-analysis success"
-    resultAnalysis.textContent = ""
+    resultAnalysis.textContent = "PROTOCOLO EXECUTADO COM SUCESSO"
   } else {
     statusIndicator.className = "status-indicator error"
-    consoleTitle.textContent = "voce errou"
+    consoleTitle.textContent = "SISTEMA: ERRO DETECTADO"
     resultAnalysis.className = "result-analysis error"
-    resultAnalysis.textContent = ""
+    resultAnalysis.textContent = "FALHA NA EXECUÇÃO DO PROTOCOLO"
   }
 
   explanationData.textContent = analysisData
@@ -523,10 +433,10 @@ function showMissionFailed() {
   gameOverOverlay.innerHTML = `
     <div class="game-over-content">
       <div class="sad-robot">😢</div>
-      <h2 class="game-over-title">VOLTE AO INICIO </h2>
-      <p class="game-over-message">sua energia acabou</p>
+      <h2 class="game-over-title">MISSÃO FALHADA</h2>
+      <p class="game-over-message">Energia esgotada... Sistemas em colapso...</p>
       <div class="static-effect"></div>
-      <button onclick="restartMission()" class="restart-btn">REINICIAR JOGO</button>
+      <button onclick="restartMission()" class="restart-btn">REINICIAR SISTEMAS</button>
     </div>
   `
 
@@ -628,7 +538,7 @@ function restartMission() {
   currentSector = 1
   currentQuestion = 1
   totalPoints = 0
-  energyLevel = 3
+  energyLevel = 10
   isTransitioning = false
 
   document.getElementById("mission-complete").style.display = "none"
