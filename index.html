@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>jogo da Crase  - Aventura Gramatical</title>
-     Mudando para fontes mais modernas e gamificadas 
+    <title>jogo da Crase - Aventura Gramatical</title>
+    <!-- Mudando para fontes mais modernas e gamificadas -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="game-universe">
@@ -48,6 +48,14 @@
                 <div class="energy-display">
                     <div class="energy-label">ENERGIA</div>
                     <div class="energy-bars" id="energy-bars">
+                        <!-- Aumentando de 3 para 10 barras de energia -->
+                        <div class="energy-bar active"></div>
+                        <div class="energy-bar active"></div>
+                        <div class="energy-bar active"></div>
+                        <div class="energy-bar active"></div>
+                        <div class="energy-bar active"></div>
+                        <div class="energy-bar active"></div>
+                        <div class="energy-bar active"></div>
                         <div class="energy-bar active"></div>
                         <div class="energy-bar active"></div>
                         <div class="energy-bar active"></div>
@@ -60,11 +68,11 @@
             </div>
         </div>
 
-         
+        <!-- Tela inicial -->
         <div class="launch-screen" id="launch-screen">
             <div class="title-sequence">
-                <h1 class="game-logo">JOGO DA CRASE </h1>
-                <p>GRUPO: Arthur Badaró, Augusto, Cassiano, Gabriel Coelho, Gabriel Conrado, Paulo e Pedro Souza </p>
+                <h1 class="game-logo">JOGO DA CRASE</h1>
+                <p>GRUPO: Arthur Badaró, Augusto, Cassiano, Gabriel Coelho, Gabriel Conrado, Paulo e Pedro Souza</p>
                 <div class="subtitle-glow"></div>
                 
                 <div class="mission-briefing">
@@ -94,9 +102,9 @@
             </div>
         </div>
 
-         
+        <!-- Área do jogo -->
         <div class="mission-area" id="mission-area" style="display: none;">
-             
+            <!-- Transição entre setores -->
             <div class="sector-transition" id="sector-transition">
                 <div class="transition-screen">
                     <div class="scanning-line"></div>
@@ -119,7 +127,7 @@
                     </div>
                 </div>
 
-                 
+                <!-- Terminais espaciais -->
                 <div class="terminal-grid">
                     <div class="terminal-station" onclick="selectTerminal(1)">
                         <div class="terminal" id="terminal-1">
